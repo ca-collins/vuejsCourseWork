@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="styles.css">
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+<div id="exercise">
+  <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+  <div>
+    <button @click="startEffect">Start Effect</button>
+    <div id="effect" :class="[{shrink: shrink }, {highlight: highlight}]"></div>
+  </div>
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div :class="[{red: true}, {bold: true}]">I got class :)</div>
+  <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+  <div>
+    <input type="text" v-model="classInput">
+    
+    <div :class="{purple: true}">{{classInput}}</div>
+  </div>
+  <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div>
+    <input type="text">
+    <input type="text">
+    <div></div>
+  </div>
+  <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+  <div>
+    <input type="text" v-model="color">
+    <div :style="{ width: '50px', height: '50px', backgroundColor: color }"></div>
+  </div>
+  <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button @click="startProgress">Start Progress</button>
+   
+    <div :style="{ width: '200px', height: '10px', border: 'solid gray 1px', marginTop: '10px', backgroundColor: 'lightgray' }">
+
+        <div :style="{ width: progress + 'px', height: '10px', backgroundColor: 'green' }"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  new Vue({
+    el: '#exercise',
+    data: {
+      shrink: true,
+      highlight: false,
+      classInput: "yellow",
+      color: "blue",
+      progress: 0
+    },
+    computed: {
+    },
+    methods: {
+      startEffect: function() {
+        vm = this;
+        setInterval(() => {
+          console.log("hi");
+          this.shrink = !this.shrink;
+          this.highlight = !this.highlight;
+        }, 1000);
+      },
+      startProgress: function () {
+        let interval = setInterval(() => {
+          this.progress+=50;
+          if (this.progress >= 200) {
+            clearInterval(interval);
+          }
+        }, 500);
+      }
+    }
+  });
+
+</script>
